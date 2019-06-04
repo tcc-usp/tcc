@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Página de visualização dos projetos divulgados pelo usuário -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+
+    <div id="pageDiv">
+
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+
+        <h2>Projetos Criados</h2>
+
+        <div class="col-xs-8 col-sm-8" style="margin:auto">
+
+            <a href="/novo-projeto" class="btn btn-info" role="button">Criar novo projeto</a>
+
+            <br><br>
+
+            <!--Filtro dos projetos pelo seu status -->
+            <div class="row">
+
+                <label for="abertos" class="filter col-xs-12 col-sm-4">
+                    <input class="filter" type="radio" value="abertos" id="abertos">Projetos recebendo inscrições</input>
+                </label>
+
+                <label for="em-analise" class="filter col-xs-12 col-sm-4">
+                    <input class="filter" type="radio" value="em-analise" id="em-analise">Projetos em análise de candidaturas</input>
+                </label>
+
+                <label for="finalizados" class="filter col-xs-12 col-sm-4">
+                    <input class="filter" type="radio" value="finalizados" id="finalizados">Projetos finalizados</input>
+                </label>
+
+            </div>
+
+            <br>
+
+            <% if(message != "") { %>
+            <p class="text-center"><%= message %></p>
+            <br>
+            <% } %>
+
+            <!-- Lista dos projetos divulgados pelo usúário-->
+            <div id="accordion">
+
+                <% if (projects.length > 0) {%>
+                    <% projects.forEach((project, i) => { %>
+
+                <div class="card" id="<%= project.project_id %>">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapse<%= project.project_id %>">
+                            <b><%= project.name %></b>, <%= project.candidates %> candidatos
+                        </a>
+
+                        <div id="collapse<%= project.project_id %>" class="collapse" data-parent="#accordion">
+                            <p><%= project.type %></p>
+                            <p><b>Reponsável: </b><%= project.owner %></p>
+                            <p><b>Data de publicação: </b><%= project.post_date %></p>
+                            <p><b>Fim das inscrições: </b><%= project.final_date %></p>
+                            <p style="white-space: pre-line"><b>Descrição: </b><%= project.description %></p>
+
+                            <div class="form-group" id="courses<%= project.project_id %>">
+                                <% if (project.courses != '@') {%>
+                                <p><b>Cursos relacionados: </b></p>
+                                <% } %>
+                            </div>
+
+                            <div class="form-group" id="skills<%= project.project_id %>">
+                                <% if (project.skills != '@') {%>
+                                <p><b>Habilidades desejadas: </b></p>
+                                <% } %>
+                            </div>
+
+                            <p><b>Duração: </b><%= project.duration %></p>
+                            <p><b>Local: </b><%= project.city %></p>
+
+                            <% if(status == 'recebendo inscrições') {%>
+                            <!--
+                                <a href="/editar_projeto/<%= project.project_id %>" class="btn btn-info" role="button">Editar</a>
+                            -->
+                                <a href="/deletar-projeto/<%= project.project_id %>" class="btn btn-info" role="button">Deletar projeto</a>
+
+                                <a href="/meu-projeto/<%= project.project_id %>" class="btn btn-info" role="button">Ver candidatos</a>
+
+                                <a href="/finalizar-inscricoes/<%= project.project_id %>" class="btn btn-info" role="button">Finalizar inscrições</a>
+                            <% } %>
+
+                            <% if(status == 'em analise') {%>
+                                <a href="/meu-projeto/<%= project.project_id %>" class="btn btn-info" role="button">Ver candidatos</a>
+
+                                <a href="/finalizar-projeto/<%= project.project_id %>" class="btn btn-info" role="button">Finalizar processo</a>
+                            <% } %>
+
+                            <% if(status == 'finalizado') {%>
+                                <a href="/meu-projeto/<%= project.project_id %>" class="btn btn-info" role="button">Ver candidatos</a>
+                            <% } %>
+
+                        </div>
+                    </div>
+                </div>
+                    <% }) %>
+                <% } else {%>
+                    <p class="text-center">Nenhum projeto <%= status %>.</p>
+                <% } %>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            //Marcar a opção do status selecionada para indicar quais projetos estão listados
+            if("<%=status%>" == 'em analise') {
+                document.getElementById("em-analise").checked=true;
+            }
+            if("<%= status %>" == 'recebendo inscrições') {
+                document.getElementById("abertos").checked=true;
+            }
+            if("<%= status %>" == 'finalizado') {
+                document.getElementById("finalizados").checked=true;
+            }
+
+            //redireciona a página de acordo com o status de projeto selecionado
+            $('#em-analise').click(function(){
+                var radioValue = $("input[id='em-analise']:checked").val();
+                if(radioValue){
+                    window.location="/usuario-projetos-" + radioValue;
+                }
+            });
+            $('#abertos').click(function(){
+                var radioValue = $("input[id='abertos']:checked").val();
+                if(radioValue){
+                    window.location="/usuario-projetos-recebendo-inscrições";// + radioValue;
+                }
+            });
+            $('#finalizados').click(function(){
+                var radioValue = $("input[id='finalizados']:checked").val();
+                if(radioValue){
+                    window.location="/usuario-projetos-" + radioValue;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+            <%if (projects.length > 0) {%>
+
+                <%projects.forEach((project, index) => {%>
+                    
+                    if ("<%= project.courses %>" != '@') {
+                        courses = "<%= project.courses %>".split("@");
+                        courses.forEach((course, index) => {
+                            $("#courses<%= project.project_id %>").append('<p>'+ course + '</p>');
+                        });
+                    }
+                <%});%>
+
+            <%}%>
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+            <%if (projects.length > 0) {%>
+
+                <%projects.forEach((project, index) => {%>
+                    
+                    if ("<%= project.skills %>" != '@') {
+                        skills = "<%= project.skills %>".split("@");
+                        skills.forEach((skill, index) => {
+                            $("#skills<%= project.project_id %>").append('<p>'+ skill + '</p>');
+                        });
+                    }
+
+                <%});%>
+
+            <%}%>
+
+        });
+    </script>
+
+</body>
+
+</html>

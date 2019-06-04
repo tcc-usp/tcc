@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página de login do adm -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+    <div id="pageDiv">
+
+        <br>
+
+        <h2>Adm login Page</h2>
+
+        <div class="col-xs-6 col-sm-4 col-lg-3" style="margin:auto">
+            <form action="" method="post">
+
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" class="form-control" name="name" id="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="pwd">Senha:</label>
+                    <input type="password" class="form-control" name="pwd" id="pwd">
+                </div>
+
+                <button id="loginBtn" type="submit" class="btn btn-primary" style="float:right">Login</button>
+
+                <% if (message != '') { %>
+                <p class="text-center text-danger"><%= message %></p>
+                <% } %>
+            </form>
+            
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+    <div id="pageDiv">
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+
+        <% if (sess.type == 'candidate') { %>
+            
+        <h2>Perfil</h2>
+
+        <div id="main" class="row">
+            <div class="col-xs-6 col-sm-6" style="margin:auto">
+                <br>
+                <p><b>Nome:</b> <%= sess.name %> </p>
+                <p><b>Nº USP:</b> <%= sess.usp_number %> </p>
+                <p><b>E-mail:</b> <%= sess.email %> </p>
+                <p><b>Telefone:</b> <%= sess.telephone %> </p>
+                <p><b>Linkedin:</b> <%= sess.linkedin %> </p>
+                <p><b>Curso:</b> <%= sess.course %> </p>
+                <p><b>Conhecimentos:</b></p>
+                
+                <% if (sess.skills.length > 0) {%>
+                    <% sess.skills.forEach((skill, index) => { %>
+                       <p><%= skill %> </p>
+                    <% }) %>
+                <% } %>
+                
+                <p style="white-space: pre-line"><b>Texto: </b><%= sess.about %> </p>
+            </div>
+        <% } else {%>
+
+            <% if(sess.type == 'company') { %>
+                
+        <h2>Perfil da Empresa</h2>
+        <div id="main" class="row">
+            <div class="col-xs-11 col-sm-10" style="margin:auto">
+                <div style="width: 60%; float: left;">
+                    <p></p>
+                    <p><b>Nome:</b> <%= sess.name %></p>
+                    <p><b>E-mail:</b> <%= sess.email %></p>
+                    <p><b>Linkedin:</b> <%= sess.linkedin %></p>
+                    <p><b>Site:</b> <%= sess.site %></p>
+                    <p style="white-space: pre-line"><b>Texto: </b><%= sess.about %></p>
+                </div>
+            
+            <% } %>
+
+            <% if(sess.type == 'professor') { %>
+                
+        <h2>Perfil do Docente</h2>
+        <div id="main" class="row">
+            <div class="col-xs-11 col-sm-10" style="margin:auto">
+                <div style="width: 60%; float: left;">
+                    <p></p>
+                    <p><b>Nome:</b> <%= sess.name %></p>
+                    <p><b>Instituto:</b> <%= sess.institute %></p>
+                    <p><b>E-mail:</b> <%= sess.email %></p>
+                    <p><b>Linkedin:</b> <%= sess.linkedin %></p>
+                    <p style="white-space: pre-line"><b>Texto: </b><%= sess.about %></p>
+                </div>
+
+            <% } %>
+
+                <div style="width: 40%; float: left;">
+
+                    <br><br>
+                    <% if(profileImg == 'True') { %>
+                    <img src="user_img/<%= sess.user_id %>.jpg" alt="profile Image" height="80" width="80">
+                    <% } %>
+                    <% if(profileImg == 'False') { %>
+                    <img src="user_img/noPhoto.jpg" alt="profile Image" height="80" width="80">
+                    <% } %>
+                    <p></p>
+
+                    <form action='' method="post" encType="multipart/form-data">
+                        <div class="form-group">
+                            <div>
+                              Alterar foto(formato jpeg ou png): 
+                              <input type="file" id="file" name="sampleFile">
+                              <p id="imageAlert"></p>
+                            </div>
+                        </div>
+                        <button id="saveBtn" type="submit" class="btn btn-primary" disabled>Salvar foto</button>
+                    </form>
+
+                </div>
+            </div>
+        <% } %>
+        </div>
+        
+    </div>
+
+    <script type="text/javascript"> //upload de imagem
+        window.onload = function() {
+            var fileInput = document.getElementById('file');
+            var imageAlert = document.getElementById('imageAlert');
+
+            fileInput.addEventListener('change', function(e) {
+              // Put the rest of the demo code here.
+                var file = fileInput.files[0];
+                var imageType = ["jpeg", "jpg", "png"];
+
+                var found = false;
+
+                imageType.forEach(function(extension) {
+                    if (file.type.match('image/'+extension)) {
+                      found = true;
+                    }
+                })
+
+                if(found) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        imageAlert.innerHTML = "";
+
+                        // Create a new image.
+                        var img = new Image();
+                        // Set the img src property using the data URL.
+                        img.src = reader.result;
+                    }
+                    reader.readAsDataURL(file);
+                    document.getElementById("saveBtn").disabled = false;
+                } else {
+                    imageAlert.innerHTML = "Tipo de arquivo não suportado";
+                    document.getElementById("saveBtn").disabled = true;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

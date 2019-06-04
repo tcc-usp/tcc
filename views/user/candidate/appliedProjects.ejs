@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página para o aluno ver a lista de projetos nos quais ele já se candidatou -->
+
+<head>
+
+    <% include ../../partial/head.html %>
+
+</head>
+
+<body>
+
+<div id="pageDiv">
+    
+    <!--Botões de navegação-->
+    <% include ../../partial/header.html %>
+
+    <% if(message != '') {%>
+    <p class="text-center"><%= message %></p>
+    <% } %>
+
+    <h2>Candidaturas</h2>
+
+    <br>
+
+    <div id="accordion" class="col-xs-12 col-md-11" style="margin:auto">
+
+        <% if (project.length > 0) {%>
+            <% project.forEach((project, i) => { %>
+
+        <div class="card" id="<%= project.project_id %>">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapse<%= project.project_id %>">
+                    
+                    <b><%= project.name %></b>, <%= project.owner %>
+                    <p>Status: <%= project.status %></p>
+                </a>
+                <div id="collapse<%= project.project_id %>" class="collapse" data-parent="#accordion">
+                    <p><%= project.type %></p>
+                    <p><b>Data de publicação: </b><%= project.post_date %></p>
+                    <p><b>Fim das inscrições: </b><%= project.final_date %></p>
+                    <p  style="white-space: pre-line"><b>Descrição: </b><%= project.description %></p>
+                    
+                    <div class="form-group" id="courses<%= project.project_id %>">
+                        <% if (project.courses != '@') {%>
+                        <p><b>Cursos relacionados: </b></p>
+                        <% } %>
+                    </div>
+                    
+                    <div class="form-group" id="skills<%= project.project_id %>">
+                        <% if (skills != '@') {%>
+                        <p><b>Habilidades desejadas: </b></p>
+                        <% } %>
+                    </div>
+                    <p><b>Duração: </b><%= project.duration %></p>
+                    <p><b>Local: </b><%= project.city %></p>
+
+                </div>
+            </div>
+        </div>
+            <% }) %>
+        <% } else { %>
+        <p class="text-center">Nenhuma candidatura realizada. Clique <a href="/projetos/1" >aqui</a> para ver as vagas de projetos disponíveis.</p>
+    <% } %>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        <%if (project.length > 0) {%>
+            <%project.forEach((project, index) => {%>
+
+                //incluir nas informações dos projetos os cursos relacionados
+                if ("<%= project.courses %>" != '@') {
+                    courses = "<%= project.courses %>".split("@");
+                    courses.forEach((course, index) => {
+                        $("#courses<%= project.project_id %>").append('<p>'+ course + '</p>');
+                    });
+                }
+
+                //inserir nas informações dos projetos as habilidades desejadas
+                if ("<%= project.skills %>" != '@') {
+                    skills = "<%= project.skills %>".split("@");
+                    skills.forEach((skill, index) => {
+                        $("#skills<%= project.project_id %>").append('<p>'+ skill + '</p>');
+                    });
+                }
+            <%});%>
+        <%}%>
+
+    });
+</script>
+
+</body>
+
+</html>

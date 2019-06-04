@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Página inicial do candidato, com informações de novos projetos divulgados e atualizações de suas candidaturas-->
+
+<head>
+
+    <% include ../../partial/head.html %>
+
+    <style>
+        a.list-group-item {
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <% if (sess.type == 'candidate') { %>
+    <div id="pageDiv">
+        <!--Botões de navegação-->
+        <% include ../../partial/header.html %>
+
+        <h2>Bem vindo(a), <%= sess.name %>.</h2>
+        <br>
+
+        <% if(sess.complete == 'false') { %> 
+            <p class="text-center">Você ainda pode inserir mais informação em seu perfil. Clique <a href="/edit-perfil" style="color: blue">aqui</a> para completar suas informações.</p>
+        <% } %>
+
+        <div class="col-xs-12 col-sm-10" style="margin:auto">
+
+            <h5>Sugestões de projetos</h5>
+
+            <% if (suggestion.length > 0) {%>
+                <div class="row" style="width:95%; margin:auto">
+                    <% suggestion.forEach((suggestion, index) => { %>
+                        <a class="list-group-item col-xs-12 col-sm-3" href="/projeto-<%= suggestion.project_id %>">
+                        
+                            <p><b><%= suggestion.name %></b></p>
+                            <p><%= suggestion.owner %>, <%= suggestion.type %>, <%= suggestion.city %></p>
+                            
+                            <p id="aplic<%= suggestion.project_id %>"></p>
+                        
+                        </a>
+                    <% }) %>
+                        <a class="list-group-item col-xs-12 col-sm-3" href="/projetos/1 %>">
+                            <p>Ver mais projetos</p>
+                        </a>
+                </div>
+            <% } else { %>
+                <p>Nenhuma sugestão encontrada.</p>
+            <% } %>
+        </div>
+
+        <br>
+
+        <div class="col-xs-12 col-sm-10" style="margin:auto">
+
+            <h5>Veja os projetos postados mais recentemente</h5>
+
+            <% if (newProject.length > 0) {%>
+                <div class="row" style="width:95%; margin:auto">
+                    <% newProject.forEach((project, index) => { %>
+                        <a class="list-group-item col-xs-12 col-sm-3" href="/projeto-<%= project.project_id %>">
+                        
+                            <p><b><%= project.name %></b></p>
+                            <p><%= project.owner %>, <%= project.type %>, <%= project.city %></p>
+                            
+                            <p id="aplic<%= project.project_id %>"></p>
+                        
+                        </a>
+                    <% }) %>
+                        <a class="list-group-item col-xs-12 col-sm-3" href="/projetos/1 %>">
+                            <p>Ver mais projetos</p>
+                        </a>
+                </div>
+            <% } else { %>
+                <p>Nenhum projeto postado recentemente.</p>
+            <% } %>
+        </div>
+
+        <br>
+
+        <div class="col-xs-12 col-sm-10" style="margin:auto">
+            <h5>Últimas atualizações de suas candidaturas</h5>
+
+            <% if (proj.length > 0) {%>
+                <div class="row" style="width:95%; margin:auto">
+                    <% proj.forEach((project, index) => { %>
+                        <a class="list-group-item col-xs-12 col-sm-3" href="/projeto-<%= project.project_id %>">
+                            
+                            <p><b><%= project.name %></b></p>
+                            <p><%= project.status %></p>
+                            <p><%= project.owner %>, <%= project.type %>, <%= project.city %></p>
+                                
+                            <p id="aplic<%= project.project_id %>"></p>
+            
+                        </a>
+                    <% }) %>
+                        <a class="list-group-item col-xs-12 col-sm-3" href="/notificacoes %>">
+                            <p>Ver mais</p>
+                        </a>
+                </div>
+            <% } else { %>
+                <div class="row" style="width:95%; margin:auto">
+                    <p class="text-center">Nenhum atualização recente.</p>
+                </div>
+            <% } %>
+        </div>
+
+        <br><br>
+        
+    </div>
+    <% } %>
+
+
+    <% if (sess.type != 'candidate') { %>
+    <div id="pageDiv">
+        <!--Botões de navegação-->
+        <% include ../../partial/header.html %>
+
+        <h2>Bem vindo(a), <%= sess.name %>.</h2>
+        <br>
+
+        <div class="col-xs-12 col-sm-10" style="margin:auto">
+
+            <h5>Últimas notificações</h5>
+            <br>
+
+            <div class="col-xs-12 col-sm-8">
+            <% if (notification.length > 0) {%>
+                <% notification.forEach((notification, index) => { %>
+                    <div>
+                        <p id="<%=index%>"></p>
+                        <hr>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p class="text-center"> Nenhuma notificação encontrada.</p>
+            <% } %>
+                <div>
+                    <a href="/notificacoes">Ver todas notificações</a>
+                    <hr>
+                </div>
+            </div>
+
+            <br>
+
+            <h5>Veja seus projetos mais próximos do prazo de fim das inscrições</h5>
+
+            <% if (projects.length > 0) {%>
+                <div class="row" style="width:95%; margin:auto">
+                    <% projects.forEach((project, index) => { %>
+                        <a class="list-group-item col-xs-12 col-sm-3" href="/meu-projeto/<%= project.project_id %>">
+                        
+                            <p><b><%= project.name %></b></p>
+                            <p>Fim das inscrições: <%=project.final_date%></p>
+                            <p>Candidatos: <%= project.candidates %></p>
+                            
+                            <p id="aplic<%= project.project_id %>"></p>
+                        
+                        </a>
+                    <% }) %>
+                        <a class="list-group-item col-xs-12 col-sm-3" href="/usuario-projetos-recebendo-inscrições %>">
+                            <p>Ver o andamento de seus projetos</p>
+                        </a>
+                </div>
+            <% } else { %>
+                <p class="text-center">Nenhum projeto postado recentemente.</p>
+            <% } %>
+
+        </div>
+
+        <br>
+
+
+        <br><br>
+    </div>
+    <% } %>
+
+    <script type="text/javascript">
+        //gera o texto da notificação
+        <% if (sess.type != 'candidate') { %>
+            <% if (notification.length > 0) {%>
+                <% notification.forEach((notification, index) => { %>
+
+                    var string = "<%= notification.about %> <%= notification.date %>";
+                    results = document.getElementById("<%=index%>");
+                    results.innerHTML = string;
+                    results.innerHTML = results.textContent;
+                
+                <% }) %>
+            <% } %>
+        <% } %>
+    </script>
+
+</body>
+
+</html>

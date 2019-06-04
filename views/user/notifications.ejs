@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página de notificações -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+<div id="pageDiv">
+    <!--Botões de navegação-->
+    <% include ../partial/header.html %>
+
+    <h2>Notificações</h2>
+    <br>
+
+    <div class="col-xs-12 col-sm-8" style="margin:auto">
+    <% if (notification.length > 0) {%>
+        <% notification.forEach((notification, index) => { %>
+            <div>
+                <p id="<%=index%>"></p>
+                <hr>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p class="text-center"> Nenhuma notificação encontrada.</p>
+    <% } %>
+    </div>
+
+    <script type="text/javascript">
+        //gera o texto da notificação
+        <% if (notification.length > 0) {%>
+            <% notification.forEach((notification, index) => { %>
+
+                var string = "<%= notification.about %> <%= notification.date %>";
+                results = document.getElementById("<%=index%>");
+                results.innerHTML = string;
+                results.innerHTML = results.textContent;
+            
+            <% }) %>
+        <% } %>
+    </script>
+
+</div>
+
+</body>
+
+</html>

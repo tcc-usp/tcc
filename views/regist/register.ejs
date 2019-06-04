@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página com o formulário para registro de usuário -->
+
+<head>
+    
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+    <div id="pageDiv">
+
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+        
+        <!-- Formulário para aluno -->
+        <% if (type == 'candidato') { %>
+        <h2>Registro Candidato</h2>
+        <p></p>
+        
+        <div class="col-xs-12 col-sm-4" style="margin:auto">
+        <form action='' method="post" encType="multipart/form-data">
+
+            <div class="form-group">
+                <label for="name">Nome completo:</label>
+                <input type="text" class="form-control" name="name" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" id="email" required>
+            </div>
+
+            <!--
+            <div class="form-group">
+                <div>
+                  Foto: 
+                  <input type="file" id="file" name="sampleFile">
+                  <p id="imageAlert"></p>
+                </div>
+            </div>-->
+
+            <div class="form-group">
+                <label for="linkedin">Linkedin:</label>
+                <input type="text" class="form-control" name="linkedin" id="linkedin">
+            </div>
+
+            <div class="form-group">
+                <p>Curso: </p>
+                    <select id="course" name="course" required>
+                        <% uspCourses.forEach((uspCourse, index) => { %>
+                            <option value="<%= uspCourse.name %>"><%= uspCourse.name %></option>
+                        <% }) %>
+                    </select>
+                <p></p>
+            </div>
+            
+            <div class="form-group">
+                <label for="telephone">Telefone:</label>
+                <input type="text" class="form-control" name="telephone" id="telephone">
+            </div>
+
+            <div class="form-group">
+                <label for="uspNumber">Nº USP:</label>
+                <input type="text" class="form-control" name="uspNumber" id="uspNumber" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pwd">Senha:</label>
+                <input type="password" class="form-control" name="pwd" id="pwd" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pwdConfirm">Confirmar senha:</label>
+                <input type="password" class="form-control" name="pwdConfirm" id="pwdConfirm" required>
+            </div>
+
+            <div style="text-align: center;">
+            <button id="saveBtn" type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+            
+            <p id="demo"></p>
+
+        </form>
+        </div>
+
+        <% } %>
+
+        <!--Formulário para empresa -->
+        <% if(type == 'empresa') { %>
+        <h2>Registro Empresa</h2>
+        <p></p>
+
+        <div class="col-xs-12 col-sm-4" style="margin:auto">
+        <form action='' method="post" encType="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" class="form-control" name="name" id="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" id="email">
+            </div>
+            <div class="form-group">
+                <div>
+                  Foto: 
+                  <input type="file" id="file" name="sampleFile">
+                  <p id="imageAlert"></p>
+                  <!--<div id="fileDisplayArea" style="margin-top:2em; width:100%; overflow-x:auto"></div>-->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="linkedin">Linkedin:</label>
+                <input type="text" class="form-control" name="linkedin" id="linkedin">
+            </div>
+            <div class="form-group">
+                <label for="site">Site:</label>
+                <input type="text" class="form-control" name="site" id="site">
+            </div>
+            <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" class="form-control" name="cnpj" id="cnpj">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Senha:</label>
+                <input type="password" class="form-control" name="pwd" id="pwd">
+            </div>
+            <div class="form-group">
+                <label for="pwdConfirm">Confirmar senha:</label>
+                <input type="password" class="form-control" name="pwdConfirm" id="pwdConfirm">
+            </div>
+            <div class="form-group form-check">
+            </div>
+
+            <div style="text-align: center;">
+            <button id="saveBtn" type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        
+        </form>
+        </div>
+        
+        <% } %>
+
+        <!--Formulário para docente -->
+        <% if(type == 'docente') { %>
+        <h2>Registro Docente</h2>
+        <p></p>
+
+        <div class="col-xs-12 col-sm-4" style="margin:auto">
+        <form action='' method="post" encType="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Nome completo:</label>
+                <input type="text" class="form-control" name="name" id="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" id="email">
+            </div>
+
+            <div class="form-group">
+                <div>
+                  Foto(formato jpeg ou png): 
+                  <input type="file" id="file" name="sampleFile">
+                  <p id="imageAlert"></p>
+                  <!--<div id="fileDisplayArea" style="margin-top:2em; width:100%; overflow-x:auto"></div>-->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="linkedin">Linkedin:</label>
+                <input type="text" class="form-control" name="linkedin" id="linkedin">
+            </div>
+            <div class="form-group">
+                <label for="institute">Instituto:</label>
+                <input type="text" class="form-control" name="institute" id="institute">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Senha:</label>
+                <input type="password" class="form-control" name="pwd" id="pwd">
+            </div>
+            <div class="form-group">
+                <label for="pwdConfirm">Confirmar senha:</label>
+                <input type="password" class="form-control" name="pwdConfirm" id="pwdConfirm">
+            </div>
+            <div class="form-group form-check">
+            </div>
+
+            <div style="text-align: center;">
+            <button id="saveBtn" type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+            
+        </form>
+        </div>
+        <% } %>
+
+    </div>
+
+    <script type="text/javascript"> //upload de imagem
+
+        window.onload = function() {
+            var fileInput = document.getElementById('file');
+            var imageAlert = document.getElementById('imageAlert');
+
+            fileInput.addEventListener('change', function(e) {
+
+                var file = fileInput.files[0];
+                var imageType = ["jpeg", "jpg", "png"];
+                var found = false;
+
+                imageType.forEach(function(extension) {
+                    if (file.type.match('image/'+extension)) {
+                      found = true;
+                    }
+                })
+
+                if(found) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        imageAlert.innerHTML = "";
+
+                        // Create a new image.
+                        var img = new Image();
+
+                        img.src = reader.result;
+                    }
+
+                    reader.readAsDataURL(file);
+                    document.getElementById("saveBtn").disabled = false;
+                }
+                else {
+                    imageAlert.innerHTML = "Tipo de arquivo não suportado";
+                    document.getElementById("saveBtn").disabled = true;
+                }
+            });
+        }
+    </script>
+
+    <script>
+        var x, y, text;
+
+        x = document.getElementById("pwd").value;
+        y = document.getElementById("pwdConfirm").value;
+        if (x != y) {
+            text = "Senhas diferem";
+        } else {
+            text = "";
+        }
+        document.getElementById("demo").innerHTML = text;
+    </script>
+</body>
+
+</html>

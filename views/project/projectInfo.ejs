@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página contendo informações de um determinado projeto -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+    <div id="pageDiv">
+        
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+        
+        <h2><%= project.name %></h2>
+
+        <div class="col-xs-12 col-sm-10" style="margin:auto">
+
+            <h3><%= project.type %></h3>
+            <br>
+
+            <% if(project.status != 'recebendo inscrições') { %>
+            <h3 style="color: red">Status do processo: <%= project.status %></h3>
+            <% } %>
+            
+            <p>
+                <b>Responsável: </b>
+                <% if (owner.type == 'company') { %>
+                    <a href="/empresas/<%= owner.url %>"><%= owner.name %></a> 
+                <% } %>
+                <% if (owner.type == 'professor') { %>
+                    <a href="/docentes/<%= owner.url %>"><%= owner.name %></a> 
+                <% } %>
+            </p>
+            
+            <p><b>Data de publicação: </b><%= project.post_date %></p>
+            <p><b>Fim das inscrições: </b><%= project.final_date %></p>
+            
+            <p><b>Descrição: </b></p>
+            <p style="white-space: pre-line"><%= project.description %></p>
+
+            <% if (course.length > 0) {%>
+                <p><b>Cursos relacionados:</b></p>
+                
+                <% course.forEach((course, index) => { %>
+                   <p><%= course %> </p>
+                <% }) %>
+
+            <% } %>
+
+            <% if (skill.length > 0) {%>
+                <p><b>Habilidades desejadas:</b></p>
+
+                <% skill.forEach((skill, index) => { %>
+                   <p><%= skill %> </p>
+                <% }) %>
+
+            <% } %>
+
+            <p><b>Duração: </b><%= project.duration %></p>
+            <p><b>Local: </b><%= project.city %></p>
+
+            <br>
+            
+            <!--Mostrar botão de candidatura dependendo se o usuário já está candidatado e se o projeto ainda está aberto para candidaturas -->
+            <% if(applied == 'no') { %>
+
+                <% if(project.status == 'recebendo inscrições') { %>
+                    <a href="/try/<%= project.project_id %>" id="cand<%= project.project_id %>" class="btn btn-info" role="button">Candidatar-se</a>
+                <% } %>
+
+                <% if(project.status != 'recebendo inscrições') { %>
+                    <p>Inscrições encerradas</p>
+                <% } %>
+
+            <% } %>
+
+            <% if(applied == 'yes') { %>
+                <p><b>Inscrito para a vaga</b></p>
+            <% } %>
+
+        </div>
+        
+    </div>
+</body>
+
+</html>

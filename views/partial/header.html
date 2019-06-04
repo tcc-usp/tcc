@@ -1,0 +1,110 @@
+<% if (logged == 0) {%>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+	<a class="navbar-brand" href="/">TCC-USP</a>
+	<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	    	<li class="nav-item"><a href="/" class="nav-link">Início</a></li>
+	    	<li class="nav-item"><a href="/empresas" class="nav-link">Empresas</a></li>
+	    	<li class="nav-item"><a href="/docentes" class="nav-link">Docentes</a></li>
+	    	<li class="nav-item"><a href="/projetos/1" class="nav-link">Projetos</a></li>
+	    	<li class="nav-item"><a href="/" class="nav-link">Login</a></li>
+	    	<li class="nav-item"><a href="/registro" class="nav-link">Registrar-se</a></li>
+	    </ul>
+  	</div>
+</nav>
+<% } %>
+
+<% if(logged == 1 && sess.type == 'candidate') {%>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+	<a class="navbar-brand" href="/">TCC-USP</a>
+	<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	    	<li class="nav-item"><a href="/" class="nav-link">Início</a></li>
+
+	      	<li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Supervisores
+		        </a>
+	        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	        		<a class="dropdown-item" href="/empresas">Empresas</a>
+	        		<a class="dropdown-item" href="/docentes">Docentes</a>
+	    		</div>
+	      	</li>
+
+	      	<li class="nav-item">
+	      	<a class="nav-link" href="/projetos/1">Projetos</a>
+	      	</li>
+
+	      	<li class="nav-item">
+	      	<a class="nav-link" href="/candidaturas">Candidaturas</a>
+	      	</li>
+
+			<li class="nav-item">
+	        	<a class="nav-link" href="/notificacoes">Notificações</a>
+	      	</li>
+
+	      	<li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Conta
+		        </a>
+	        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	        		<a class="dropdown-item" href="/perfil">Perfil</a>
+	        		<a class="dropdown-item" href="/edit-perfil">Editar informações</a>
+	    			<a class="dropdown-item" href="/trocar-senha">Trocar Senha</a>
+	    		</div>
+	      	</li>
+	      	
+			<li class="nav-item">
+	        	<a class="nav-link" href="/logout">Logout</a>
+	      	</li>
+
+	    </ul>
+  	</div>
+</nav>
+
+<% } %>
+
+<% if(logged == 1 && (sess.type == 'company' || sess.type == 'professor')) {%>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+	<a class="navbar-brand" href="/">TCC-USP</a>
+	<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+
+  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	    	<li class="nav-item"><a href="/" class="nav-link">Início</a></li>
+	    	<li class="nav-item"><a href="/usuario-projetos-recebendo-inscrições" class="nav-link">Meus Projetos</a></li>
+	    	<li class="nav-item"><a href="/notificacoes" class="nav-link">Notificações</a></li>
+
+	      	<li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Conta
+		        </a>
+	        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	        		<a class="dropdown-item" href="/perfil">Perfil</a>
+	        		<a class="dropdown-item" href="/edit-perfil">Editar informações</a>
+	    			<a class="dropdown-item" href="/trocar-senha">Trocar Senha</a>
+	    		</div>
+	      	</li>
+	      	
+			<li class="nav-item">
+	        	<a class="nav-link" href="/logout">Logout</a>
+	      	</li>
+
+	    </ul>
+  	</div>
+</nav>
+<% } %>
+
+<div>
+	<br>
+	<br>
+	<br>
+</div>

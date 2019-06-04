@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página para visualização das vagas abertas para projetos -->
+
+<head>
+
+    <% include ../partial/head.html %>
+    
+    <style>
+        .paging{
+          text-decoration: none;
+          display: inline-block;
+          color: black;
+          padding: 8px 16px;
+        }
+        .paging:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        .round {
+          border-radius: 50%;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="pageDiv">
+    
+    <!--Botões de navegação-->
+    <% include ../partial/header.html %>
+
+    <h2>Projetos abertos</h2>
+
+    <div id="main" class="row">
+
+        <!-- filtros -->
+        <% include ../partial/filters.html %>
+
+        <div class="col-xs-12 col-sm-8 col-lg-9" id="filters">
+
+            <!-- páginas dos projetos existentes e botões para sua navegação -->
+            <% include ../partial/paging.html %>
+            
+            <br>
+
+            <!--Lista dos projetos -->
+            <div id="accordion">
+
+                <% if (project.length > 0) {%>
+                    <% project.forEach((project, i) => { %>
+
+                <div class="card" id="<%= project.project_id %>">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapse<%= project.project_id %>">
+                            <b><%= project.name %></b>, <%= project.owner %>
+                        </a>
+                        <div id="collapse<%= project.project_id %>" class="collapse" data-parent="#accordion">
+                            <p><%= project.type %></p>
+                            <p><b>Reponsável: </b><%= project.owner %></p>
+                            <p><b>Data de publicação: </b><%= project.post_date %></p>
+                            <p><b>Fim das inscrições: </b><%= project.final_date %></p>
+                            <p  style="white-space: pre-line"><b>Descrição: </b><%= project.description %></p>
+
+                            <div class="form-group" id="courses<%= project.project_id %>">
+                                <% if (project.courses != '@') {%>
+                                <p><b>Cursos relacionados: </b></p>
+                                <% } %>
+                            </div>
+
+                            <div class="form-group" id="skills<%= project.project_id %>">
+                                <% if (project.skills != '@') {%>
+                                <p><b>Habilidades desejadas: </b></p>
+                                <% } %>
+                            </div>
+
+                            <p><b>Duração: </b><%= project.duration %></p>
+                            <p><b>Local: </b><%= project.city %></p>
+
+                            <a href="/try/<%= project.project_id %>" id="cand<%= project.project_id %>" class="btn btn-info" role="button">Candidatar-se</a>
+
+                            <p id="aplic<%= project.project_id %>"></p>
+                        </div>
+                    </div>
+                </div>
+                    <% }) %>
+                <% } %>
+            </div>
+
+            <!-- páginas dos projetos existentes e botões para sua navegação -->
+            <% include ../partial/paging.html %>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        <%if (project.length > 0) {%>
+
+            <%project.forEach((project, index) => {%>
+
+                //Indica se o usuário já está inscrito para determinado projeto
+                <% if(application.includes(project.project_id)) { %>
+                $("#cand<%= project.project_id %>").hide();
+                document.getElementById("aplic<%= project.project_id %>").innerHTML= "Inscrito para a vaga";
+                <% } %>
+                
+                if ("<%= project.courses %>" != '@') {
+                    courses = "<%= project.courses %>".split("@");
+                    courses.forEach((course, index) => {
+                        $("#courses<%= project.project_id %>").append('<p>'+ course + '</p>');
+                    });
+                }
+            <%});%>
+
+        <%}%>
+
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+
+        <%if (project.length > 0) {%>
+
+            <%project.forEach((project, index) => {%>
+                
+                if ("<%= project.skills %>" != '@') {
+                    skills = "<%= project.skills %>".split("@");
+                    skills.forEach((skill, index) => {
+                        $("#skills<%= project.project_id %>").append('<p>'+ skill + '</p>');
+                    });
+                }
+
+            <%});%>
+
+        <%}%>
+
+    });
+</script>
+
+
+</body>
+
+</html>

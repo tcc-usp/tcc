@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+<div id="pageDiv">
+
+    <br>
+    <h2>ADMIN</h2>
+
+    <div style="text-align: center">
+
+        <a href="/mars/recusados" class="btn btn-info" role="button">Solicitações recusadas</a>
+        <a href="/mars/logout" class="btn btn-info" role="button">Sair</a>
+        <br><br>
+        <h3>Solicitações de registro</h3>
+
+    </div>
+
+    <br>
+
+   <div id="main" class="row">
+
+       <div class="col-xs-12 col-sm-4" style="margin:auto">
+           <h3>Candidatos</h3>
+       </div>
+       <div class="col-xs-12 col-sm-4" style="margin:auto">
+           <h3>Empresas</h3>
+       </div>
+       <div class="col-xs-12 col-sm-4" style="margin:auto">
+           <h3>Docentes</h3>
+       </div>
+   </div>
+
+    <div id="main" class="row">
+
+        <div class="col-xs-12 col-sm-4" style="margin:auto">
+
+            <div id="accordion" style="position:absolute; top:0;">
+
+                <% if (candidate.length > 0) {%>
+                    <% candidate.forEach((candidate, index) => { %>
+
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapse<%= candidate.user_id %>">
+                            <b><%= candidate.name %></b>, <%= candidate.type %>
+                        </a>
+                        <div id="collapse<%= candidate.user_id %>" class="collapse" data-parent="#accordion">
+                            <p><b>Nome: </b><%= candidate.name %></p>
+                            <p><b>E-mail: </b><%= candidate.email %></p>
+                            <p><b>Curso: </b><%= candidate.course %></p>
+                            <p><b>Nº USP: </b><%= candidate.usp_number %></p>
+
+                            <a href="/mars/adm/add_<%= candidate.user_id %>" id="add<%= candidate.user_id %>" class="btn btn-info" role="button">Aceitar</a>
+
+                            <a href="/mars/adm/decline_<%= candidate.user_id %>" id="dec<%= candidate.user_id %>" class="btn btn-info" role="button">Recusar</a>
+                        </div>
+                    </div>
+
+                    <% }) %>
+                <% } %>
+
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-4" style="margin:auto">
+
+            <div id="accordion" style="position:absolute; top:0;">
+
+                <% if (company.length > 0) {%>
+                    <% company.forEach((company, index) => { %>
+
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapse<%= company.user_id %>">
+                            <b><%= company.name %></b>, <%= company.type %>
+                        </a>
+                        <div id="collapse<%= company.user_id %>" class="collapse" data-parent="#accordion">
+                            <p><b>Nome: </b><%= company.name %></p>
+                            <p><b>E-mail: </b><%= company.email %></p>
+                            <p><b>Site: </b><%= company.site %></p>
+                            <p><b>CNPJ: </b><%= company.cnpj %></p>
+
+                            <a href="/mars/adm/add_<%= company.user_id %>" id="add<%= company.user_id %>" class="btn btn-info" role="button">Aceitar</a>
+
+                            <a href="/mars/adm/decline_<%= company.user_id %>" id="dec<%= company.user_id %>" class="btn btn-info" role="button">Recusar</a>
+                        </div>
+                    </div>
+                    
+                    <% }) %>
+                <% } %>
+
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-4" >
+
+            <div id="accordion" style="position:absolute; top:0;">
+
+                <% if (professor.length > 0) {%>
+                    <% professor.forEach((professor, index) => { %>
+
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapse<%= professor.user_id %>">
+                            <b><%= professor.name %></b>, <%= professor.type %>
+                        </a>
+                        <div id="collapse<%= professor.user_id %>" class="collapse" data-parent="#accordion">
+                            <p><b>Nome: </b><%= professor.name %></p>
+                            <p><b>E-mail: </b><%= professor.email %></p>
+                            <p><b>Instituto: </b><%= professor.institute %></p>
+
+                            <a href="/mars/adm/add_<%= professor.user_id %>" id="add<%= professor.user_id %>" class="btn btn-info" role="button">Aceitar</a>
+
+                            <a href="/mars/adm/decline_<%= professor.user_id %>" id="dec<%= professor.user_id %>" class="btn btn-info" role="button">Recusar</a>
+                        </div>
+                    </div>
+                    
+                    <% }) %>
+                <% } %>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+
+</html>

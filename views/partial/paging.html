@@ -1,0 +1,49 @@
+<p></p>
+
+<% if(page.total > 0) {%>
+
+    <% if(url == "") {%>
+
+        <% if(page.actual != 1) {%>
+            <a href="/projetos/<%= page.previous %>" class="previous round paging">&#8249;</a>
+        <% } %>
+        <% if(page.actual <= 5) {%>
+            <% for(i = 1; i <= page.last; i++) {%>
+                <a class="paging" href="/projetos/<%= i %>"><%= i %></a>
+            <% } %>
+        <% } %>
+        <% if(page.actual > 5) {%>
+            <% for(i = page.first; i <= page.last; i++) {%>
+                <a class="paging" href="/projetos/<%= i %>"><%= i %></a>
+            <% } %>
+        <% } %>
+        <% if(page.actual != page.total) { %>
+            <% page.next = page.actual + 1 %>
+            <a href="/projetos/<%= page.next %>" class="next round paging">&#8250;</a>
+        <% } %>
+    <% } %>
+
+
+    <% if(url != "") {%>
+
+        <% if(page.actual != 1) {%>
+            <a href="/projetos/<%= page.previous %>/<%= url %>" class="previous round paging">&#8249;</a>
+        <% } %>
+        <% if(page.actual <= 5) {%>
+            <% for(i = 1; i <= page.last; i++) {%>
+                <a class="paging" href="/projetos/<%= i %>/<%= url %>"><%= i %></a>
+            <% } %>
+        <% } %>
+        <% if(page.actual > 5) {%>
+            <% for(i = page.first; i <= page.last; i++) {%>
+                <a class="paging" href="/projetos/<%= i %>/<%= url %>"><%= i %></a>
+            <% } %>
+        <% } %>
+        <% if(page.actual != page.total) { %>
+            <% page.next = page.actual + 1 %>
+            <a href="/projetos/<%= page.next %>/<%= url %>" class="next round paging">&#8250;</a>
+        <% } %>
+
+    <% } %>
+
+<% } %>

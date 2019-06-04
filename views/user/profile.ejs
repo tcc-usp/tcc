@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página do perfil do usuário -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+
+    <div id="pageDiv">
+
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+
+        <h2>Página do candidato</h2>
+        <br>
+
+        <div class="col-xs-12 col-sm-10" style="margin:auto">
+            <div style="width: 60%; float: left;">
+            <p><b>Nome:</b> <%= userInfo.name %> </p>
+            <p><b>Nº USP:</b> <%= candInfo.usp_number %> </p>
+            <p><b>E-mail:</b> <%= userInfo.email %> </p>
+            <p><b>Telefone:</b> <%= candInfo.telephone %> </p>
+            <p><b>Linkedin:</b> <%= userInfo.linkedin %> </p>
+            <p><b>Curso:</b> <%= candInfo.course %> </p>
+            <p><b>Conhecimentos:</b></p>
+            
+            <% if (skillInfo.length > 0) {%>
+                <% skillInfo.forEach((skill, index) => { %>
+                   <p><%= skill %> </p>
+                <% }) %>
+            <% } %>
+            
+            <p style="white-space: pre-line"><b>Sobre: </b> <%= userInfo.about %> </p>
+            </div>
+
+            <div style="width: 40%; float: left;">
+            <% if(profileImg == 'True') { %>
+            <img src="../user_img/<%= userInfo.user_id %>.jpg" alt="profile Image" height="80" width="80">
+            <% } %>
+            <% if(profileImg == 'False') { %>
+            <img src="../user_img/noPhoto.jpg" alt="profile Image" height="80" width="80">
+            <% } %>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+
+</html>

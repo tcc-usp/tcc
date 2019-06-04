@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página do formulário de criação de um novo projeto -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+    <div id="pageDiv">
+
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+        
+        <h2>Criar novo projeto</h2>
+
+        <div class="col-xs-12 col-sm-4" style="margin:auto">
+            <form action="" method="post" id="forms">
+
+                <div class="form-group">
+                    <label for="name">Nome do projeto:</label>
+                    <input type="text" class="form-control" name="name" id="name">
+                </div>
+
+                Tipo de projeto:
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="type" value="Iniciação Científica">Iniciação Científica
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="type" value="TCC Acadêmico">TCC Acadêmico
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="type" value="TCC com Empresa">Projeto de empresa
+                    </label>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="description">Descrição:</label>
+                    <textarea type="text" class="form-control" name="description" id="description" rows="10"></textarea>
+                </div>
+
+                <div class="form-group" id="courses">
+                    <p>Cursos relacionados: </p>
+                        <select id="course" name="course[]">
+                            <% uspCourses.forEach((uspCourse, index) => { %>
+                                <option value="<%= uspCourse.name %>"><%= uspCourse.name %></option>
+                            <% }) %>
+                        </select>
+                    <p></p>
+                </div>
+
+                <button id="addMoreCourses">Adicionar mais cursos</button><p></p>
+
+                <div class="form-group" id="skills">
+                    <label for="skill">Habilidades ou conhecimentos desejados: </label>
+                    <input type="text" class="form-control" name="skill[]">
+                    <p></p>
+                </div>
+
+                <button id="addMoreSkill">Adicionar mais habilidades</button><p></p>
+
+                <div class="form-group">
+                    <label for="duration">Duração estimada:</label>
+                    <input type="text" class="form-control" name="duration" id="duration">
+                </div>
+
+                <div class="form-group">
+                    <label for="final_date">Incrições até:</label>
+                    <input type="date" class="form-control" name="final_date" id="final_date">
+                </div>
+
+                <div class="form-group">
+                    <label for="city">Cidade:</label>
+                    <input type="text" class="form-control" name="city" id="city">
+                </div>
+
+                <div class="form-group">
+                    <label for="state">Estado:</label>
+                    <input type="text" class="form-control" name="state" id="state">
+                </div>
+
+                <button id="saveBtn" type="submit" class="btn btn-primary" style="float: right">Criar projeto</button>
+
+            </form>
+        </div>
+
+        <br><br>
+
+        <script type="text/javascript">
+            //Adicionar outro campo para valor de habilidade
+            $(function() {
+                $("#addMoreSkill").click(function(e) {
+                    e.preventDefault();
+                    $("#skills").append('<input type="text" class="form-control" name="skill[]"> <p></p>');
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            //Adicionar outro campo para cursos relacionados
+            $(function() {
+                $("#addMoreCourses").click(function(e) {
+                    e.preventDefault();
+                    var itm = document.getElementById("course");
+                    var cln = itm.cloneNode(true);
+                    document.getElementById("courses").appendChild(cln);
+                    $("#courses").append('<p></p>');
+                });
+            });
+        </script>
+
+    </div>
+</body>
+
+</html>

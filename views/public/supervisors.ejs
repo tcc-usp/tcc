@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página com a lista de docentes ou empresas cadastrados no site -->
+
+<head>
+    
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+    <div id="pageDiv">
+
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+        
+        <!-- Lista de empresas -->
+        <% if(type == 'company') { %>
+
+            <h2>Empresas</h2>
+            <br>
+
+            <div id="main" class="row">
+
+            <% if (result.length > 0) {%>
+                <% result.forEach((result, index) => { %>
+
+                    <a class="col-xs-6 col-sm-4 col-lg-3" href="/empresas/<%= result.url %>" style="text-align: center"><%= result.name %></a>
+
+                <% }) %>
+                </div>
+            <% } else { %>
+
+                <p class="text-center">Não há empresas cadastradas no momento.</p>
+
+            <% } %>
+
+        <% } %>
+
+        <!-- Lista de docentes -->
+        <% if(type == 'professor') { %>
+
+            <h2>Docentes</h2>
+            <br>
+        
+            <div id="main" class="row">
+
+            <% if (result.length > 0) {%>
+                <% result.forEach((result, index) => { %>
+
+                    <a class="col-xs-6 col-sm-4 col-lg-3" href="/docentes/<%= result.url %>" style="text-align: center"><%= result.name %></a>
+
+                <% }) %>
+            <% } else { %>
+
+                <p class="text-center">Não há docentes cadastradas no momento</p>
+
+            <% } %>
+
+        <% } %>
+        
+    </div>
+
+</body>
+
+</html>

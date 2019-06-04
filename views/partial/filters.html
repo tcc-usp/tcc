@@ -1,0 +1,116 @@
+<br>
+<div class="col-xs-12 col-sm-4 col-lg-3" id="filters" style="text-align: center">
+    <!-- Filtro de tipo de projeto -->
+    <div>
+        <p>Tipo de projeto: </p>
+        <select name="type" id="type" onchange="Filter()">
+            <option value=""></option>
+            <% if (type.length > 0) {%>
+                <% type.forEach((type, index) => { %>
+                    <% if(type == selType) { %>
+                    <option value="<%= type %>" selected><%= type %></option>
+                    <% } %>
+                    <% if(type != selType) { %>
+                    <option value="<%= type %>"><%= type %></option>
+                    <% } %>
+                <% }) %>
+            <% } %>
+        </select>  
+    </div>
+
+    <br>
+
+    <!--Filtro de curso -->
+    <div>
+        <p>Cursos relacionados: </p>
+        <select name="type" id="course" onchange="Filter()">
+            <option value=""></option>
+            <% if (course.length > 0) {%>
+                <% course.forEach((course, index) => { %>
+                    <% if(course == selCourse) { %>
+                    <option value="<%= course %>" selected><%= course %></option>
+                    <% } %>
+                    <% if(course != selCourse) { %>
+                    <option value="<%= course %>"><%= course %></option>
+                    <% } %>
+                <% }) %>
+            <% } %>
+        </select>  
+    </div>
+
+    <br>
+
+    <!-- Filtro de cidade -->
+    <div>
+        <p>Cidade: </p>
+        <select name="city" id="city" onchange="Filter()">
+            <option value=""></option>
+            <% if (city.length > 0) {%>
+                <% city.forEach((city, index) => { %>
+                    <% if(city == selCity) { %>
+                    <option value="<%= city %>" selected><%= city %></option>
+                    <% } %>
+                    <% if(city != selCity) { %>
+                    <option value="<%= city %>"><%= city %></option>
+                    <% } %>
+                <% }) %>
+            <% } %>
+        </select>  
+    </div>
+
+    <br>
+
+    <!-- Filtro de responsável pelo projeto -->
+    <div>
+        <p>Responsável: </p>
+        <select name="owner" id="owner" onchange="Filter()">
+            <option value=""></option>
+            <% if (owner.length > 0) {%>
+                <% owner.forEach((owner, index) => { %>
+                    <% if(owner == selOwner) { %>
+                    <option value="<%= owner %>" selected><%= owner %></option>
+                    <% } %>
+                    <% if(owner != selOwner) { %>
+                    <option value="<%= owner %>"><%= owner %></option>
+                    <% } %>
+                <% }) %>
+            <% } %>
+        </select>  
+    </div>
+
+    <br>
+    <!-- Botão para filtrar os projetos -->
+    <a href="/projetos/1" id="filterBtn" class="btn btn-primary">Filtrar</a>
+
+</div>
+
+
+
+<script>
+    function Filter() {
+
+        var type = document.getElementById("type").value;
+        var course = document.getElementById("course").value;
+        var city = document.getElementById("city").value;
+        var owner = document.getElementById("owner").value;
+
+        type = (type == '') ? "*" : type;
+        course = (course == '') ? "" : course;
+        city = (city == '') ? "*" : city;
+        owner = (owner == '') ? "*" : owner;
+
+        url = "/projetos/1";
+
+        url = url + "/tipo=" + type;
+        url = url + "&curso=" + course;
+        url = url + "&cidade=" + city;
+        url = url + "&responsavel=" + owner;
+        
+        if(type == '*' && course == '' && city == '*' && owner == '*') {
+            url = "/projetos/1";
+        }
+        
+        document.getElementById("filterBtn").href = url;
+     
+    }
+</script>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página para edição de informações do usuário -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+    <div id="pageDiv">
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+
+        <% if (sess.type == 'candidate') { %>
+            
+            <h2>Editar informações</h2>
+
+            <div class="col-xs-12 col-sm-4" style="margin:auto">
+
+            <form action="" method="post">
+
+                <div class="form-group">
+                    <label for="about">Texto:</label>
+                    <textarea type="text" class="form-control" name="about" id="about" rows="10"><%= sess.about %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">Telefone:</label>
+                    <input type="text" class="form-control" name="telephone" id="telephone" value="<%= sess.telephone %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="linkedin">Linkedin:</label>
+                    <input type="text" class="form-control" name="linkedin" id="linkedin" value="<%= sess.linkedin %>">
+                </div>
+
+                <div class="form-group">
+                    <p>Curso: </p>
+                        <select id="course" name="course" required>
+                            <% uspCourses.forEach((uspCourse, index) => { %>
+                                <% if(uspCourse.name == sess.course) { %>
+                                    <option value="<%= uspCourse.name %>" selected><%= uspCourse.name %></option>
+                                <% } %>
+                                <% if(uspCourse.name != sess.course) { %>
+                                    <option value="<%= uspCourse.name %>"><%= uspCourse.name %></option>
+                                <% } %>
+                            <% }) %>
+                        </select>
+                    <p></p>
+                </div>
+
+                <div class="form-group" id="skills">
+                    <label for="skill">Habilidades: </label>
+                    <% if (sess.skills.length > 0) {%>
+                        <% sess.skills.forEach((skill, index) => { %>
+                            <% if (skill != '') {%>
+                            <input type="text" class="form-control" name="skill[]" value="<%= skill %>">
+                            <p></p>
+                            <% } %>
+                        <% }) %>
+                    <% } %>
+                    <input type="text" class="form-control" name="skill[]">
+                    <p></p>
+                </div>
+                
+                <button id="addMore">Adicionar mais habilidades</button><p></p>
+
+                <button id="saveBtn" type="submit" class="btn btn-primary">Salvar</button>
+
+            </form>
+        </div>
+        <% } %>
+
+        <% if (sess.type == 'company') { %>
+            
+            <h2>Editar informações</h2>
+
+            <div class="col-xs-12 col-sm-4" style="margin:auto">
+
+            <form action='' method="post" encType="multipart/form-data">
+
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" class="form-control" name="name" id="name" value="<%= sess.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="about">Texto:</label>
+                    <textarea type="text" class="form-control" name="about" id="about" rows="10"><%= sess.about %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="site">Site:</label>
+                    <input type="text" class="form-control" name="site" id="site" value="<%= sess.site %>">
+                </div>
+                <div class="form-group">
+                    <label for="linkedin">Linkedin:</label>
+                    <input type="text" class="form-control" name="linkedin" id="linkedin" value="<%= sess.linkedin %>">
+                </div>
+
+                <button id="saveBtn" type="submit" class="btn btn-primary">Salvar</button>
+
+            </form>
+        </div>
+        <% } %>
+
+        <% if (sess.type == 'professor') { %>
+            
+            <h2>Editar informações</h2>
+
+            <div class="col-xs-12 col-sm-4" style="margin:auto">
+
+            <form action='' method="post" encType="multipart/form-data">
+
+                <div class="form-group">
+                    <label for="about">Texto:</label>
+                    <textarea type="text" class="form-control" name="about" id="about" rows="10"><%= sess.about %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="institute">Instituto:</label>
+                    <input type="text" class="form-control" name="institute" id="institute" value="<%= sess.institute %>">
+                </div>
+                <div class="form-group">
+                    <label for="linkedin">Linkedin:</label>
+                    <input type="text" class="form-control" name="linkedin" id="linkedin" value="<%= sess.linkedin %>">
+                </div>
+
+                <button id="saveBtn" type="submit" class="btn btn-primary">Salvar</button>
+
+            </form>
+        </div>
+        <% } %>
+
+    </div>
+
+    <script type="text/javascript">
+        //adiciona mais um campo para habilidades do usuário
+        $(function() {
+            $("#addMore").click(function(e) {
+                e.preventDefault();
+                $("#skills").append('<input type="text" class="form-control" name="skill[]"> <p></p>');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

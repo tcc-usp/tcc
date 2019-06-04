@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página para cadastro de nova senha -->
+
+<head>
+
+    <% include ../partial/head.html %>
+    
+</head>
+
+<body>
+    <div id="pageDiv">
+
+        <br>
+
+        <div id="homePage" class="layout">
+            <h2>Insira a nova senha</h2>
+
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for="password">Nova senha:</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Confirmar nova senha:</label>
+                    <input type="password" class="form-control" name="pwd" id="pwd">
+                </div>
+
+                <button id="Btn" type="submit" class="btn btn-primary">Salvar</button>
+                
+                <% if (message != '') { %>
+                <p class="text-center text-danger"><%= message %></p>
+                <% } %>
+            </form>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

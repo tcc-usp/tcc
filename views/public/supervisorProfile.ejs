@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página do perfil da empresa ou docente -->
+
+<head>
+
+    <% include ../partial/head.html %>
+    
+</head>
+
+<body>
+    <div id="pageDiv">
+
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+
+        <% if(userInfo.type == "company") { %>
+        
+        <h2><%= userInfo.name %></h2>
+        <div id="main" class='row'>
+            <div class="col-xs-11 col-sm-10" style="margin:auto">
+                <% if(count == 0) { %>
+                    <p>Esta empresa não possui projetos abertos no momento.</p>
+                <% } %>
+                <% if(count != 0) { %>
+                    <a href="/projetos/1/tipo=*&curso=&cidade=*&responsavel=<%= userInfo.name %>" class="btn btn-info">Ver projetos</a>
+                <% } %>
+
+                <br><br>
+            
+                <div style="width: 60%; float: left;">
+                    <p><b>E-mail:</b> <%= userInfo.email %></p>
+                    <p><b>Linkedin:</b> <%= userInfo.linkedin %></p>
+                    <p><b>Site:</b> <%= typeInfo.site %></p>
+                    <p style="white-space: pre-line"><b>Sobre: </b><%= userInfo.about %></p>
+                </div>
+        <% } %>
+
+        <% if(userInfo.type == "professor") { %>
+
+        <h2><%= userInfo.name %></h2>
+        <div id="main" class='row'>
+            <div class="col-xs-11 col-sm-10" style="margin:auto">
+                <% if(count == 0) { %>
+                    <p>Este docente não possui projetos abertos no momento.</p>
+                <% } %>
+                <% if(count != 0) { %>
+                    <a href="/projetos/1/tipo=*&curso=&cidade=*&responsavel=<%= userInfo.name %>" class="btn btn-info">Ver projetos</a>
+                <% } %>
+
+                <br><br>
+                
+                <div style="width: 60%; float: left;">
+                    <p><b>E-mail:</b> <%= userInfo.email %></p>
+                    <p><b>Linkedin:</b> <%= userInfo.linkedin %></p>
+                    <p><b>Instituto:</b> <%= typeInfo.institute %></p>
+                    <p style="white-space: pre-line"><b>Sobre: </b><%= userInfo.about %></p>
+                </div>
+        <% } %>
+
+                <div style="width: 30%; float: right;">
+                    <% if(profileImg == 'True') { %>
+                    <img src="../user_img/<%= userInfo.user_id %>.jpg" alt="profile Image" height="80" width="80">
+                    <% } %>
+                    <% if(profileImg == 'False') { %>
+                    <img src="../user_img/noPhoto.jpg" alt="profile Image" height="80" width="80">
+                    <% } %>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

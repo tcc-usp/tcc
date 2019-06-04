@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página para selecionar o tipo de registro(aluno, docente ou empresa) -->
+
+<head>
+
+	<% include ../partial/head.html %>
+
+</head>
+
+<body>
+	<div id="pageDiv">
+
+		<!--Botões de navegação-->
+		<% include ../partial/header.html %>
+		
+		<h2>Registrar-se como:</h2>
+		<br>
+		<div style="width:20%; margin:auto">
+			<div class="form-check" id="userType">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="regType" value="candidato">Candidato
+				</label>
+			</div>
+			<div class="form-check">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="regType" value="empresa">Empresa
+				</label>
+			</div>
+			<div class="form-check disabled">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="regType" value="docente">Docente
+				</label>
+			</div>
+		
+			<br>
+
+			<div style="text-align: center;">
+			<button id="typeBtn" type="button" class="btn btn-primary">Próximo</button>
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+		$(document).ready(function(){
+			$('#typeBtn').click(function(){
+				var radioValue = $("input[name='regType']:checked").val();
+				if(radioValue){
+					window.location="/registro-" + radioValue;
+				}
+				else{
+					alert("Selecione uma opção");
+				}
+			});
+		});
+	</script>
+
+</body>
+
+</html>

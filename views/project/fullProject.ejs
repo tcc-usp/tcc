@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+<!--Página com todas informações do projeto, incluindo os candidatos à vaga -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+    <div id="pageDiv">
+
+        <!--Botões de navegação-->
+        <% include ../partial/header.html %>
+
+        <h2>Ver Candidaturas</h2>
+        <br>
+
+        <div class="row">
+
+            <div class="col-xs-12 col-md-4" style="margin-left: 20px">
+
+                <h3><b><%= project.name %></b></h3>
+                <p><%= project.type %></p>
+
+                <% if(project.status == 'recebendo inscrições') { %>
+                    <a href="/finalizar-inscricoes/<%= project.project_id %>" class="btn btn-info" role="button">Finalizar inscrições</a>
+                <% } %>
+                <% if(project.status == 'em analise') { %>
+                    <a href="/finalizar-projeto/<%= project.project_id %>" class="btn btn-info" role="button">Finalizar processo</a>
+                <% }  %>
+
+                <br><br>
+
+                <p><b>Descrição: </b></p>
+                <p style="white-space: pre-line"><%= project.description %></p>
+
+                <% if (course.length > 0) {%>
+                    <p><b>Cursos relacionados:</b></p>
+                    <% course.forEach((course, index) => { %>
+                       <p><%= course %> </p>
+                    <% }) %>
+                <% } %>
+
+                <% if (skill.length > 0) {%>
+                    <p><b>Habilidades desejadas:</b></p>
+                    <% skill.forEach((skill, index) => { %>
+                       <p><%= skill %> </p>
+                    <% }) %>
+                <% } %>
+
+                <p><b>Data de publicação: </b><%= project.post_date%></p>
+                <p><b>Fim das inscrições: </b><%= project.final_date %></p>
+                <p><b>Duração: </b><%= project.duration %></p>
+                <p><b>Local: </b><%= project.city %></p>
+                <br>
+
+            </div>
+
+
+            <div class="col-xs-12 col-md-7" style="position: relative;">
+            <div id="accordion" style="width:100%; position: absolute; top: 0px;">
+
+                <h3>Candidatos</h3>
+                <br>
+
+                <% if (candidate.length > 0) {%>
+                    <% candidate.forEach((candidate, i) => { %>
+
+                <div class="card" id="<%= candidate.user_id %>">
+                    <div class="card-header">
+
+                        <a class="card-link" data-toggle="collapse" href="#collapse<%= candidate.user_id %>">
+                            <b><%= candidate.name %></b>
+                        </a>
+
+                        <div id="collapse<%= candidate.user_id %>" class="collapse" data-parent="#accordion">
+                            
+                            <br>
+                            <p style="white-space: pre-line"><b>Sobre: </b><%= candidate.about %></p>
+                            <p><b>Email: </b><%= candidate.email %></p>
+                            <p><b>Curso: </b><%= candidate.course %></p>
+                            <p><b>Nº USP: </b><%= candidate.usp_number %></p>
+
+                            <div class="form-group" id="skills<%= candidate.user_id %>">
+                                <% if (candidate.skills != '@') {%>
+                                <p><b>Conhecimentos/Habilidades: </b></p>
+                                <% } %>
+                            </div>
+
+                            <p><b>Linkedin: </b><%= candidate.linkedin %></p>
+                            <p><b>Telefone: </b><%= candidate.telephone %></p>
+
+                        </div>
+                    </div>
+                </div>
+                    <% }) %>
+                <% } else { %>
+                <p style="float: left;">Nenhuma candidatura realizada até o momento.</p>
+            <% } %>
+                <br>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function(){
+
+            //incluir nas informações dos candidatos as suas habilidades
+            <%if (candidate.length > 0) {%>
+
+                <%candidate.forEach((candidate, index) => {%>
+
+                    if ("<%= candidate.skills %>" != '@') {
+                        skills = "<%= candidate.skills %>".split("@");
+                        skills.forEach((skill, index) => {
+                            $("#skills<%= candidate.user_id %>").append('<p>'+ skill + '</p>');
+                        });
+                    }
+                   
+                <%});%>
+
+            <%}%>
+
+        });
+    </script>
+</body>
+
+</html>

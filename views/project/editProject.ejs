@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Página de edição de informações de um projeto -->
+
+<head>
+
+    <% include ../partial/head.html %>
+
+</head>
+
+<body>
+
+    <div id="pageDiv">
+
+        <!--Header-->
+        <% include ../partial/header.html %>
+        
+        <h2>Editar Informações do Projeto</h2>
+
+        <!--Formulário para edição das informações de um projeto-->
+        <div class="col-xs-12 col-sm-4" style="margin:auto">
+
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for="name">Nome do projeto:</label>
+                    <input type="text" class="form-control" name="name" id="name" value="<%= project.name %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descrição:</label>
+                    <textarea type="text" class="form-control" name="description" id="description" rows="10"><%= project.description %></textarea>
+                </div>
+
+                <div class="form-group" id="courses">
+                    <p>Cursos relacionados: </p>
+                    <%if(courses.length > 0) {%>
+                        <% courses.forEach((course, index) => { %>
+                            <% if(course != '') { %>
+                                <select id="course" name="course[]">
+                                    <% uspCourses.forEach((uspCourse, index) => { %>
+                                        <% if(uspCourse.name == course) { %>
+                                        <option value="<%= uspCourse.name %>" selected><%= uspCourse.name %></option>
+                                        <% } %>
+                                        <% if(uspCourse.name != course) { %>
+                                        <option value="<%= uspCourse.name %>"><%= uspCourse.name %></option>
+                                        <% } %>
+                                    <% }) %>
+                                </select>
+                            <% } %>
+                            <p></p>
+                        <% }) %>
+                    <% } %>
+                    <p></p>
+                </div>
+
+                <button id="addMoreCourses">Adicionar mais cursos</button><p></p>
+
+                <div class="form-group" id="skills">
+                    <label for="skill">Habilidades ou conhecimentos desejados: </label>
+                    <% if (skills.length > 0) {%>
+                        <% skills.forEach((skill, index) => { %>
+                            <% if (skill != '') {%>
+                            <input type="text" class="form-control" name="skill[]" value="<%= skill %>">
+                            <p></p>
+                            <% } %>
+                        <% }) %>
+                    <% } %>
+                    <input type="text" class="form-control" name="skill[]">
+                    <p></p>
+                </div>
+
+                <button id="addMore">Adicionar mais habilidades</button><p></p>
+
+                <div class="form-group">
+                    <label for="duration">Duração:</label>
+                    <input type="text" class="form-control" name="duration" id="duration" value="<%= project.duration %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="final_date">Data final das inscrições:</label>
+                    <input type="date" class="form-control" name="final_date" id="final_date" value="<%= project.final_date %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="city">Cidade:</label>
+                    <input type="text" class="form-control" name="city" id="city" value="<%= project.city %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="state">Estado:</label>
+                    <input type="text" class="form-control" name="state" id="state" value="<%= project.state %>">
+                </div>
+
+                <button id="saveBtn" type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        //Adicionar outro campo para inserção de habilidade
+        $(function() {
+            $("#addMore").click(function(e) {
+                e.preventDefault();
+                $("#skills").append('<input type="text" class="form-control" name="skill[]"> <p></p>');
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        //Adicionar outro campo para inserção de curso relacionado
+        $(function() {
+            $("#addMoreCourses").click(function(e) {
+                e.preventDefault();
+                var itm = document.getElementById("course");
+                var cln = itm.cloneNode(true);
+                cln.selectedIndex = "";
+                document.getElementById("courses").appendChild(cln);
+                $("#courses").append('<p></p>');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
