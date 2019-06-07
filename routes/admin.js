@@ -125,7 +125,7 @@ module.exports = {
         let id = [];
 
         if(req.session.adm == 1) {
-            console.log("Página inicial do adm");
+            console.log("Página recusados do adm");
 
             //busca no banco de dados novas solicitações de registro de usuário
             db.query("SELECT user_id FROM `user` WHERE status='recusado';", (err, idResult) => {
@@ -168,6 +168,14 @@ module.exports = {
                                 });
                             });
                         });
+                    });
+                }
+                else {
+                    res.render('adm/refuseds.ejs', {
+                        title: site_name
+                        , candidate: []
+                        , company: []
+                        , professor: []
                     });
                 }
             });

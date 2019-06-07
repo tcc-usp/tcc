@@ -4,15 +4,6 @@ const {sendMail} = require('./functions');
 var fs = require('fs');
 
 module.exports = {
-    teste: (req, res) => {
-        var message = "teste";
-        var i = 10;
-
-        res.render('teste.ejs', {
-            message
-            , i
-        });
-    },
     //carregar a página inicial do site
     getHomePage: (req, res) => {
         sess = req.session;//contem dados da sessão do usuário
@@ -458,12 +449,13 @@ module.exports = {
                 filterList.forEach((filterList, index) => {
                     if (filterList.courses != '@') {
                         courses = filterList.courses.split("@");
+                        courses.forEach((courses, index) => {
+                            if(courses != '') {
+                                course.push(courses);
+                            }
+                        })
                     }
-                    courses.forEach((courses, index) => {
-                        if(courses != '') {
-                            course.push(courses);
-                        }
-                    })
+                    
                     city.push(filterList.city);
                     owner.push(filterList.owner);
                     type.push(filterList.type);
