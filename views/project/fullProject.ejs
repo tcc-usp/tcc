@@ -68,14 +68,11 @@
 
                 <% if (candidate.length > 0) {%>
                     <% candidate.forEach((candidate, i) => { %>
-
                 <div class="card" id="<%= candidate.user_id %>">
                     <div class="card-header">
-
                         <a class="card-link" data-toggle="collapse" href="#collapse<%= candidate.user_id %>">
                             <b><%= candidate.name %></b>
                         </a>
-
                         <div id="collapse<%= candidate.user_id %>" class="collapse" data-parent="#accordion">
                             
                             <br>
@@ -83,16 +80,13 @@
                             <p><b>Email: </b><%= candidate.email %></p>
                             <p><b>Curso: </b><%= candidate.course %></p>
                             <p><b>Nº USP: </b><%= candidate.usp_number %></p>
-
                             <div class="form-group" id="skills<%= candidate.user_id %>">
                                 <% if (candidate.skills != '@') {%>
                                 <p><b>Conhecimentos/Habilidades: </b></p>
                                 <% } %>
                             </div>
-
                             <p><b>Linkedin: </b><%= candidate.linkedin %></p>
                             <p><b>Telefone: </b><%= candidate.telephone %></p>
-
                         </div>
                     </div>
                 </div>
@@ -110,12 +104,9 @@
 
     <script>
         $(document).ready(function(){
-
             //incluir nas informações dos candidatos as suas habilidades
             <%if (candidate.length > 0) {%>
-
                 <%candidate.forEach((candidate, index) => {%>
-
                     if ("<%= candidate.skills %>" != '@') {
                         skills = "<%= candidate.skills %>".split("@");
                         skills.forEach((skill, index) => {
@@ -124,9 +115,7 @@
                     }
                    
                 <%});%>
-
             <%}%>
-
         });
     </script>
 </body>
